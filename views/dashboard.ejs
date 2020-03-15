@@ -1,0 +1,209 @@
+<% include util/numberWithCommas %> 
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="google-site-verification" content="_dOWMbp6E8ELpQtlz-JjlKefElLQyBiSAWsrmZiDfig" />
+	<meta name="googlebot" content="noindex">
+	<meta name="robots" content="noindex">
+	<title>DASHBOARD</title>
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:400,500,700&amp;subset=korean">
+	<link rel="stylesheet" href="./css/plugin.css">
+	<link rel="stylesheet" href="./css/common.css">
+	<script type="text/javascript" src="./js/plugin.js"></script>
+</head>
+
+<body class="master">
+	<div class="wrap">
+		<header class="header">
+			<% include ./header %>
+		</header>
+		<main class="main clear">
+			<% include ./lnb %>
+			<section class="content">
+				<h2 class="tit">대시보드</h2>
+				<br><br>
+				<hr>
+				<div class="wrap_table scroll_x">
+					<h2>회원</h2>
+
+					<table class="table_horizontal">
+						<colgroup>
+							<col style="width:100px">
+							<col style="width:100px">
+							<col style="width:100px">
+							<col style="width:100px">
+							<col style="width:100px">
+							<col style="width:100px">
+						</colgroup>
+						<thead>
+							<tr class="center">
+								<th>UV</th>
+								<th>신규 가입자</th>
+								<th>총 회원</th>
+								<th>활성 회원</th>
+								<th>휴면 회원</th>
+								<th>탈퇴 회원</th>
+							</tr>
+						</thead>
+
+						<tbody>
+							<tr class="center nowrap">
+								<td>
+									-
+								</td>
+								<td>
+									<%=data.result.newUserCnt%>
+								</td>
+								<td>
+									<%=numberWithCommas(data.result.totalUserCnt)%>
+								</td>
+								<td>
+								</td>
+								<td>
+									<%=data.result.inActiveUserCnt%>
+								</td>
+								<td>
+									<%=data.result.deleteUserCnt%>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+
+				<br><br>
+				<hr>
+				<div class="wrap_table scroll_x">
+					<h2>매출 실시간 <%=data.result.sale.date%></h3>
+					</h2>
+
+					<table class="table_horizontal">
+						<colgroup>
+							<col style="width:100px">
+							<col style="width:100px">
+							<col style="width:100px">
+							<col style="width:100px">
+							<col style="width:100px">
+							<col style="width:100px">
+						</colgroup>
+						<thead>
+							<tr class="center">
+								<th>매출</th>
+								<th>주문 건수</th>
+								<th>판매 품목 수량</th>
+							</tr>
+						</thead>
+
+						<tbody>
+							<tr class="center nowrap">
+								<td>
+									<h3><%if(data.result.sale.sum_price)%><%=numberWithCommas(data.result.sale.sum_price)%>원</h3>
+								</td>
+								<td><%=data.result.sale.count%>건</td>
+								<td><%=data.result.sale.od_total_quantity%>개</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<br><br>
+				<hr>
+				<div class="wrap_table scroll_x">
+					<h2>아이템 클릭 랭크(오늘기준)</h2>
+
+					<table class="table_horizontal">
+						<colgroup>
+							<col style="width:100px">
+							<col style="width:100px">
+							<col style="width:100px">
+							<col style="width:100px">
+							<col style="width:100px">
+							<col style="width:100px">
+						</colgroup>
+						<thead>
+							<tr class="center">
+								<th>순위</th>
+								<th>클릭수</th>
+								<th>아이디</th>
+								<th>상품명</th>
+								<th>상품이미지</th>
+							</tr>
+						</thead>
+
+						<tbody>
+							<% for(var i=0; i<data.result.itemRank.length; i++){ %>
+							<tr class="center nowrap">
+								<td>
+									<%=i+1%>
+								</td>
+								<td>
+									<%=data.result.itemRank[i].count%>
+								</td>
+								<td>
+										<a target="_blank" href="http://www.hiphoper.com/item/<%=data.result.itemRank[i].it_id%>"><%=data.result.itemRank[i].it_id%></a>
+								</td>
+								<td>
+									<%=data.result.itemRank[i].it_name%>
+								</td>
+								<td>
+									<img style="width:30px; height:30px;" src="<%=data.result.itemRank[i].it_img1%>" alt="임시이미지">
+								</td>
+							</tr>
+							<%}%>
+                    </tbody>
+                </table>
+            </div>
+            <br><br><hr>
+            <!-- <div class="wrap_table scroll_x">
+                    <h2>---</h2>
+
+                <table class="table_horizontal">
+                    <colgroup>
+                        <col style="width:100px">
+                        <col style="width:100px">
+                        <col style="width:100px">
+                        <col style="width:100px">
+                        <col style="width:100px">
+                        <col style="width:100px">
+                    </colgroup>
+                    <thead>
+                        <tr class="center">
+                            <th>UV?????</th>
+                            <th>신규 가입자</th>
+                            <th>총 회원</th>
+                            <th>활성 회원</th>
+                            <th>휴면 회원</th>
+                            <th>탈퇴 회원</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr class="center nowrap">
+                            <td>
+                                -
+                            </td>
+                            <td>
+                                <%=data.result.newUserCnt%>
+							</td>
+							<td>
+								<%=data.result.totalUserCnt%>
+							</td>
+							<td>
+								<%=data.result.activeUserCnt%>
+							</td>
+							<td>
+								<%=data.result.inActiveUserCnt%>
+							</td>
+							<td>
+								<%=data.result.deleteUserCnt%>
+							</td>
+							</tr>
+						</tbody>
+					</table>
+				</div> -->
+			</section>
+		</main>
+	</div>
+</body>
+
+</html>

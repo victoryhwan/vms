@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<!-- <% include ../include/header %> -->
+
+<!-- <style>
+  .info-box {
+    min-height: 45px;
+  }
+
+  .info-box-icon {
+    height: 55px;
+    width: 55px;
+    font-size: 30px;
+    line-height: 55px;
+  }
+
+  .info-box-content {
+    margin-left: 60px;
+  }
+
+  .callout.callout-default{
+    background-color: #ffffff !important;
+    border-color: #91d4ff;
+  }
+
+
+</style> -->
+
+<!-- Ionicons -->
+<!-- <link rel="stylesheet" href="../../bower_components/Ionicons/css/ionicons.min.css"> -->
+
+<body class="hold-transition skin-blue sidebar-mini">
+  <div class="wrapper">
+
+    <!-- <% include ../include/sidebar %> -->
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+      <!-- Content Header (Page header) -->
+      <section class="content-header">
+        <h1>
+          Dashboard
+          <small></small>
+        </h1>
+        <ol class="breadcrumb">
+          <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+          <li class="active">Dashboard</li>
+        </ol>
+      </section>
+      <!-- Content Header (Page header) -->
+
+      <!-- Main content -->
+      <section class="content">
+
+
+        <div class="row">
+
+          <div class="col-md-2 col-sm-6 col-xs-12">
+              <div class="callout callout-default">
+                <span class="info-box-text">신규 가입자</span>
+                <span class="info-box-number" id="member"> loading...</span>
+              </div>
+          </div>
+
+          <div class="col-md-2 col-sm-6 col-xs-12">
+              <div class="callout callout-default">
+                <span class="info-box-text">탈퇴회원</span>
+                <span class="info-box-number" id="member_out">loading...</span>
+              </div>
+          </div>
+
+          <div class="col-md-2 col-sm-6 col-xs-12">
+              <div class="callout callout-default">
+                <span class="info-box-text">어제 가입자</span>
+                <span class="info-box-number" id="member_1day_before">loading...</span>
+              </div>
+          </div>
+
+          <div class="col-md-2 col-sm-6 col-xs-12">
+              <div class="callout callout-default">
+                <span class="info-box-text">결제완료</span>
+                <span class="info-box-number" id="totalPayment">loading...</span>
+              </div>
+          </div>
+
+          <div class="col-md-2 col-sm-6 col-xs-12">
+              <div class="callout callout-default">
+                <span class="info-box-text">주문건수</span>
+                <span class="info-box-number" id="totalOrderCnt">loading...</span>
+              </div>
+          </div>
+
+          <div class="col-md-2 col-sm-6 col-xs-12">
+            <div class="callout callout-default">
+                <span class="info-box-text">미입금</span>
+                <span class="info-box-number" id="totalUnpayment">loading...</span>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="row">
+          <div class="col-md-5 py-1">
+            <div class="box box-default">
+              <canvas id="chUserLine"></canvas>
+            </div>
+          </div>
+          <div class="col-md-5 py-1">
+            <div class="box box-default">
+              <canvas id="chPayLine"></canvas>
+            </div>
+          </div>
+        </div>
+
+        <div class="box box-solid">
+          <div class="box-header with-border">
+            아이템 클릭 랭크(오늘기준)
+          </div>
+
+          <div class="box-body">
+            <table id="table"
+              data-classes="table table-bordered table-striped"
+              data-toolbar="#toolbar"
+              data-search="false"
+              data-detail-view="false"
+              data-pagination="false"
+              style="font-size: 12px; word-break: break-all;">
+            </table>
+          </div>
+        </div>
+
+      </section>
+      <!-- /Main content -->
+
+    </div>
+    <!-- /.content-wrapper -->
+
+
+    <!-- <% include ../include/footer %> -->
+  </div>
+  <!-- ./wrapper -->
+
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script> -->
+  <script type="text/javascript">
+    // var $table = $('#table');
+
+    // // 3일치 가입자 정보 가져오기
+    // function getDashBoardInfo() {
+
+    //   $.ajax({
+    //     type: 'get',
+    //     url: '<%= apiHost %>/cms/api/dashboard/info',
+    //     processData: false,
+    //     contentType: false,
+    //     dataType: "json",
+    //     error: function(xhr, status, error) {},
+    //     success: function(json) {
+    //       document.getElementById('member').innerHTML = json.newUserToday;
+    //       document.getElementById('member_out').innerHTML = json.deleteUser;
+    //       document.getElementById('member_1day_before').innerHTML = json.newUserYesterday;
+    //       document.getElementById('totalPayment').innerHTML = formatNumber(json.totalPayment);
+    //       document.getElementById('totalOrderCnt').innerHTML = json.totalOrderCnt;
+    //       document.getElementById('totalUnpayment').innerHTML = json.totalUnpayment;
+
+    //       applyChartData(json);
+    //     }
+    //   });
+    // }
+
+    // function initTable() {
+    //   $table.bootstrapTable('destroy').bootstrapTable({
+    //     url: "<%= apiHost %>/cms/api/dashboard/click",
+    //     method: 'get',
+    //     cache: false,
+    //     columns: [{
+    //         title: '순위',
+    //         align: "center",
+    //         valign: "middle",
+    //         formatter: runningFormatter
+    //       },
+    //       {
+    //         field: "count",
+    //         title: "클릭수",
+    //         align: "center",
+    //         valign: "middle"
+    //       },
+    //       {
+    //         field: "it_id",
+    //         title: "아이디",
+    //         align: "center",
+    //         valign: "middle",
+    //         formatter: itemInfoLinkFormatter
+    //       }, {
+    //         field: "it_name",
+    //         title: "상품명",
+    //         align: "center",
+    //         valign: "middle"
+    //       }, {
+    //         field: "it_img1",
+    //         title: "상품이미지",
+    //         align: "center",
+    //         valign: "middle",
+    //         formatter: itemImageFormatter
+    //       }, {
+    //         field: "it_sale_price",
+    //         title: "세일가",
+    //         align: "center",
+    //         valign: "middle"
+    //       }
+    //     ]
+    //   });
+
+    //   setTimeout(function() {
+    //     $table.bootstrapTable("resetView");
+    //   }, 200);
+
+
+    //   $(window).resize(function() {
+    //     $table.bootstrapTable('resetView', {
+    //       /* height: getHeight() */
+    //     });
+    //   });
+
+    //   $table.on('post-body.bs.table', function() {
+    //     $('.image-popup-no-margins').magnificPopup({
+    //       type: 'image',
+    //       closeOnContentClick: true,
+    //       closeBtnInside: false,
+    //       fixedContentPos: true,
+    //       mainClass: 'mfp-no-margins mfp-with-zoom', // class to remove default margin from left and right side
+    //       image: {
+    //         verticalFit: true
+    //       },
+    //       zoom: {
+    //         enabled: true,
+    //         duration: 300 // don't foget to change the duration also in CSS
+    //       }
+    //     });
+    //   });
+
+    // }
+
+    // function runningFormatter(value, row, index) {
+    //   /* return index + 1; */
+    //   var tableOptions = $table.bootstrapTable('getOptions');
+    //   return 1 + index;
+    // }
+
+    // function itemImageFormatter(value, row, index) {
+    //   if (isBlank(value))
+    //     return "-";
+    //   else
+    //     return "<a id='img-popup' class='image-popup-no-margins' href='" + value + "'>" +
+    //       "<img src='" + value + "' style='width: 40px;'>" +
+    //       "</a>";
+    // }
+
+    // function itemInfoLinkFormatter(value, row, index) {
+    //   return "<a href='https://www.hiphoper.com/item/" + value + "' target='_blank' >" + value + "</a>";
+    // }
+
+    // function formatNumber(num) {
+    //   if(!num || num === undefined) {
+    //     return 0;
+    //   }
+    //   return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
+    // }
+
+
+    // function applyChartData(chartData) {
+
+    //   var chartPayData = {
+    //     labels: ["6일전", "5일전", "4일전", "3일전", "2일전", "1일전", "오늘"],
+    //     datasets: [{
+    //       label: "매출",
+    //       data: chartData.totalPaymentList,
+    //       borderColor: "#91d4ff",
+    //       borderWidth: 1
+    //     }]
+    //   };
+
+    //   var chartUserData = {
+    //     labels: ["6일전", "5일전", "4일전", "3일전", "2일전", "1일전", "오늘"],
+    //     datasets: [{
+    //       label: "가입자",
+    //       data: chartData.newUserList,
+    //       borderColor: "#91d4ff",
+    //       borderWidth: 1
+    //     }]
+    //   };
+
+    //   var chUserLine = document.getElementById("chUserLine");
+    //   if (chUserLine) {
+    //     new Chart(chUserLine, {
+    //       type: 'line',
+    //       data: chartUserData,
+    //       options: {
+    //         title: {
+    //           display: true,
+    //           text: "가입자수"
+    //         },
+    //         scales: {
+    //           yAxes: [{
+    //             ticks: {
+    //               beginAtZero: true
+    //             }
+    //           }],
+    //           xAxes: [{
+    //             gridLines: {
+    //               display: false
+    //             }
+    //           }]
+    //         },
+    //         legend: {
+    //           display: false
+    //         }
+    //       }
+    //     });
+    //   }
+
+    //   var chPayLine = document.getElementById("chPayLine");
+    //   if (chPayLine) {
+    //     new Chart(chPayLine, {
+    //       type: 'line',
+    //       data: chartPayData,
+    //       options: {
+    //         title: {
+    //           display: true,
+    //           text: "일매출"
+    //         },
+    //         tooltips: {
+    //           mode: 'label',
+    //           label: 'mylabel',
+    //           callbacks: {
+    //             label: function(tooltipItem, data) {
+    //               return tooltipItem.yLabel.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    //             },
+    //           },
+    //         },
+    //         scales: {
+    //           yAxes: [{
+    //             ticks: {
+    //               beginAtZero: true,
+    //               callback: function(value, index, values) {
+    //                 if (parseInt(value) >= 1000) {
+    //                   return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    //                 } else {
+    //                   return value;
+    //                 }
+    //               }
+    //             }
+    //           }],
+    //           xAxes: [{
+    //             gridLines: {
+    //               display: false
+    //             }
+    //           }]
+    //         },
+    //         legend: {
+    //           display: false
+    //         }
+    //       }
+    //     });
+    //   }
+
+    // }
+
+
+    $(document).ready(function() {
+      // initTable();
+      // 가입자 정보 읽어 오기
+      // getDashBoardInfo();
+
+    });
+  </script>
+
+</body>
+
+<html>

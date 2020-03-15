@@ -1,0 +1,43 @@
+<footer class="main-footer">
+    <div class="pull-right hidden-xs">
+      <b>Version</b> 2.4.0
+    </div>
+    <strong>Copyright &copy; 2000-2100 <a href="https://www.hiphoper.com/">HIPHOPER</a>.</strong> All rights
+    reserved.
+  </footer>
+  
+  <!-- jQuery 3 -->
+  <script src="../../bower_components/jquery/dist/jquery.min.js"></script>
+  <!-- Bootstrap 3.3.7 -->
+  <script src="../../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+  <!-- bootstrap datepicker -->
+  <script src="../../bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+  <!-- FastClick -->
+  <script src="../../bower_components/fastclick/lib/fastclick.js"></script>
+  <!-- SlimScroll -->
+  <script src="../../bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+  <!-- AdminLTE App -->
+  <script src="../../dist/js/adminlte.min.js"></script>
+  <!-- Magnific Popup core JS file -->
+  <script src="../../dist/js/jquery.magnific-popup.js"></script>
+  
+  <script src="../../bower_components/moment/moment.js"></script>
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/tableexport.jquery.plugin/tableExport.min.js"></script>
+  <script src="https://unpkg.com/bootstrap-table@1.15.4/dist/bootstrap-table.min.js"></script>
+  <script src="https://unpkg.com/bootstrap-table@1.15.4/dist/extensions/export/bootstrap-table-export.min.js"></script>
+  <script src="../../hhp_utils.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js" integrity="sha256-EPrkNjGEmCWyazb3A/Epj+W7Qm2pB9vnfXw+X6LImPM=" crossorigin="anonymous"></script>
+  <script>
+    // pace가 ajax의 httpMethod를 인식하기 위해 설정
+    // 현재 get, post, put만 사용하니
+    window.paceOptions = {
+      ajax: {
+        trackMethods: ['GET', 'POST', 'PUT']
+      }
+    }
+    $(document).ajaxStart(function() { 
+      Pace.restart(); 
+    });
+  </script>
