@@ -10,8 +10,9 @@ var path = require('path');
 var app = express();
 var cors = require('cors');
 var robots = require('express-robots-txt');
-
+var logger = require('morgan');
 require('dotenv').config();
+
 app.set('port', process.env.PORT || 3030);
 
 
@@ -31,7 +32,7 @@ app.use(session({
     maxAge: 6000 * 60 * 60 // 쿠키 유효기간 24시간
   }
 }));
-
+app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({
   extended: false
@@ -72,8 +73,7 @@ app.use('/login', require('./routes/login/login.js'));
 app.use('/node_modules', express.static(__dirname + '/node_modules'));
 
 app.use('/', require('./routes/dashboard/dashboard.js'));
-
-// app.use('/', require('./routes/admin/admin.js'));
+app.use('/admin', require('./routes/admin/admin.js'));
 
 
 // catch 404 and forward to error handler
@@ -83,17 +83,11 @@ app.use(function (req, res, next) {
 });
 
 process.on('uncaughtException', (err) => {
-    // console.log('("@@@");uncaughtException');
-    // console.log(err);
     console.log('whoops! there was an error');
 });
 
 app.use(function (err, req, res, next) {
-    // set locals, only providing error in development
-
-    console.log("@@@@@@@");
-    console.log(err);
-    console.log("@@@@@@@");
+    // set locals, only providing error in developmente
     res.locals.message = err.message;
     res.locals.error = req.app.get('env') === 'development' ? err : {};
     // console.log(err)

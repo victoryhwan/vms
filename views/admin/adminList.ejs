@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<% include ../include/header %>
+
+<body class="hold-transition skin-blue sidebar-mini">
+	<div class="wrapper">
+		<% include ../include/sidebar %>
+		<div class="content-wrapper">
+			
+			<section class="content-header">
+				<h1>관리자 계정 관리<small></small></h1>
+				<ol class="breadcrumb">
+				  <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+				  <li><a href="#">관리자 관리</a></li>
+				  <li class="active">관리자 계정 관리</li>
+				</ol>
+			</section>
+
+			<section class="content">
+				<div class="row">
+					<div class="col-md-12">
+						<!-- search area start -->	
+						<div class="box box-primary">
+
+							<div class="box-header with-border">
+								<h3 class="box-title">검색</h3>
+								<div class="box-tools pull-right">
+									<button id="search-btn" class="btn btn-primary btn-xs " value="조회" style="min-width: 80px;">조회</button>
+									<button id="regist-btn" class="btn btn-primary btn-xs " value="조회" style="min-width: 80px;">등록</button>
+								</div>
+							</div>
+							<div class="box-body form-horizontal">
+								<div class="form-group">
+									<div class="col-sm-2 col-sm-offset-1">
+										<select class="form-control input-sm" id="srch-type">
+											<option value="0">선택하세요</option>
+											<option value="1">아이디</option>
+											<option value="2">이름</option>
+											<option value="3">전화번호</option>
+											<option value="4">이메일</option>
+											<option value="5">메신저</option>
+										</select>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" class="form-control input-sm" id="srch-word" placeholder="Search">
+									</div>
+									<div class="col-sm-4 col-sm-offset-1">
+										<div class="input-group date">
+											<div class="input-group-addon"><i class="fa fa-calendar"></i></div>
+											<input type="text" class="form-control pull-right input-sm" id="start-date">
+											<span class="input-group-addon" style="padding: 5px 5px;">to</span>
+											<div class="input-group-addon"><i class="fa fa-calendar"></i></div>
+											<input type="text" class="form-control pull-right input-sm" id="end-date">
+										</div>
+									</div>
+								</div>
+							</div>
+	
+						</div>
+						<!-- search area end -->	
+
+						<div class="box box-solid">
+							<div class="box-body">
+							  <table
+								  id="admin_list_table"
+								  data-classes="table table-bordered"
+								  data-toolbar="#toolbar"
+								  data-detail-view="false"
+								  data-detail-formatter="detailFormatter"
+								  data-pagination="true"
+								  data-id-field="idx"
+								  data-page-list="[10, 20, 50, 100, All]"
+								  data-side-pagination="server"
+								  data-response-handler="responseHandler"
+								  style="font-size: 12px;">
+							  </table>
+							</div>
+						  </div>
+					</div>
+				</div>
+			</section>
+		</div><!-- .content-wrapper -->
+
+		<!-- 어드민 등록 Modal -->
+		<div class="modal" id="regist-modal" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
+			<div class="modal-dialog" style="width: 40%;">
+			  <div class="modal-content">
+				<div class="modal-header" >
+				  <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span></button>
+				  <h4 class="modal-title">어드민 등록</h4>
+				</div>
+				<!-- /.modal-header -->
+				
+				<div class="box-body form-horizontal">
+					<form id="regist-modal-form">
+						<div class="form-group">
+							<label class="control-label col-sm-3 required">아이디 </label>
+							<div class="col-sm-4">
+								<input type="text" class="form-control input-sm" id="reg-id" name="id" required data-name="아이디" data-options='{"spaceChk" : "true", "korTextChk" : "true"}'>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="control-label col-sm-3 required">비밀번호 </label>
+							<div class="col-sm-4">
+								<input type="text" class="form-control input-sm" id="reg-pw" name="pw" required data-name="비밀번호" data-options='{"spaceChk" : "true", "korTextChk" : "true"}'>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="control-label col-sm-3 required">이름 </label>
+							<div class="col-sm-4">
+								<input type="text" class="form-control input-sm" id="reg-name" name="name" required data-name="이름">
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="control-label col-sm-3 required">휴대전화번호 </label>
+							<div class="col-sm-4">
+								<input type="text" class="form-control input-sm" id="reg-phone" name="phone" required data-name="휴대전화번호" data-options='{"numberChk" : "true"}'>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="control-label col-sm-3 required">부서 </label>
+							<div class="col-sm-4">
+								<select name="department" class="form-control input-sm">
+									<option value="마스터" selected>마스터</option>
+									<option value="MD">MD</option>
+									<option value="마케팅">마케팅</option>
+									<option value="기획">기획</option>
+									<option value="개발">개발</option>
+								</select>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="control-label col-sm-3 required">권한등급 </label>
+							<div class="col-sm-4">
+								<select name="level" class="form-control input-sm">
+									<option value="1" selected>1</option>
+									<option value="2">2</option>
+									<option value="3">3</option>
+									<option value="4">4</option>
+									<option value="5">5</option>
+									<option value="6">6</option>
+									<option value="7">7</option>
+									<option value="9">8</option>
+									<option value="9">9</option>
+									<option value="10">10</option>
+								</select>
+							</div>
+						</div>
+					</form>
+				</div>
+				<!-- /.modal-body -->
+	   
+				<div class="modal-footer">
+				  <input type="button" id="regist-modal-btn" class="btn btn-sm btn-primary btn-w-m" data-dismiss="modal" value=" 등록 " />
+				</div>
+				<!-- /.modal-footer -->
+			  </div>
+			</div>
+		</div>
+		<!-- 어드민 등록 Modal -->
+	  
+		<!-- 어드민 수정 Modal -->
+		<div class="modal" id="modify-modal" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
+			<div class="modal-dialog" style="width: 40%;">
+				<div class="modal-content">
+				<div class="modal-header" >
+					<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span></button>
+					<h4 class="modal-title">어드민 등록</h4>
+				</div>
+				<!-- /.modal-header -->
+				
+				<div class="box-body form-horizontal">
+					<form id="brandRegistForm" enctype="multipart/form-data">
+						<div class="form-group">
+							<label class="control-label col-sm-3 required">아이디 </label>
+							<div class="col-sm-4">
+								<input type="text" class="form-control input-sm" id="brCode" name="brCode" required data-name="브랜드코드" data-options='{"spaceChk" : "true", "korTextChk" : "true"}'>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="control-label col-sm-3 required">비밀번호 </label>
+							<div class="col-sm-4">
+								<input type="text" class="form-control input-sm" id="brName" name="brName" required data-name="브랜드명(한글)">
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="control-label col-sm-3 required">이름 </label>
+							<div class="col-sm-4">
+								<input type="text" class="form-control input-sm" id="brEngName" name="brEngName" required data-name="브랜드명(영문)" data-options='{}'>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="control-label col-sm-3 required">휴대전화번호 </label>
+							<div class="col-sm-4">
+								<input type="text" class="form-control input-sm" id="brEngName" name="brEngName" required data-name="브랜드명(영문)" data-options='{}'>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="control-label col-sm-3 required">부서 </label>
+							<div class="col-sm-4">
+								<select name="department" class="form-control input-sm">
+									<option value="마스터" selected>마스터</option>
+									<option value="MD">MD</option>
+									<option value="마케팅">마케팅</option>
+									<option value="기획">기획</option>
+									<option value="개발">개발</option>
+								</select>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="control-label col-sm-3 required">권한등급 </label>
+							<div class="col-sm-4">
+								<select name="level" class="form-control input-sm">
+									<option value="1" selected>1</option>
+									<option value="2">2</option>
+									<option value="3">3</option>
+									<option value="4">4</option>
+									<option value="5">5</option>
+									<option value="6">6</option>
+									<option value="7">7</option>
+									<option value="9">8</option>
+									<option value="9">9</option>
+									<option value="10">10</option>
+								</select>
+							</div>
+						</div>
+					</form>
+				</div>
+				<!-- /.modal-body -->
+		
+				<div class="modal-footer">
+					<input type="button" id="modify-modal-btn" class="btn btn-sm btn-primary btn-w-m" data-dismiss="modal" value=" 등록 " />
+				</div>
+				<!-- /.modal-footer -->
+				</div>
+			</div>
+		</div>
+		<!-- 어드민 등록 Modal -->
+	
+	<% include ../include/footer %>
+	</div><!-- .wrapper end -->
+	<script src="../js/validation.js"></script>
+	<script type="text/javascript">
+		var $table = $('#admin_list_table');
+		var selections = [];
+
+		function searchAdminList() {
+			$table.bootstrapTable('destroy').bootstrapTable({
+				url: "<%= apiHost %>/admin/getAdminList",
+				queryParams: function (p) {
+					return {
+						srchType: $('#srch-type option:selected').val(),
+                    	srchWord: $('#srch-word').val(),
+                    	sDate: $('#start-date').val(),
+                    	eDate: $('#end-date').val(),
+						offset: p.offset,
+						limit: p.limit
+					};
+				},
+				cache: false,
+				pageSize: 20,
+				columns: [
+					{
+						field: "idx",
+						title: "idx",
+						align: "center",
+						valign: "middle"
+					},{
+						field: "id",
+						title: "아이디",
+						align: "center",
+						valign: "middle"
+					},{
+						field: "pw",
+						title: "패스워드",
+						align: "center",
+						valign: "middle"
+					},{
+						field: "name",
+						title: "이름",
+						align: "center",
+						valign: "middle"
+					},{
+						field: "phone",
+						title: "전화번호",
+						align: "center",
+						valign: "middle"
+					},{
+						field: "department",
+						title: "부서",
+						align: "center",
+						valign: "middle"
+					},{
+						field: "level",
+						title: "권한등급",
+						align: "center",
+						valign: "middle"
+					}
+            	]
+			});
+
+			// sometimes footer render error.
+			setTimeout(function () {
+				$table.bootstrapTable("resetView");
+			}, 200);
+
+			var eventElement = "check.bs.table uncheck.bs.table check-all.bs.table uncheck-all.bs.table";
+
+        	$table.on(eventElement, function () {
+				// save your data, here just save the current page
+				selections = getIdSelections();
+				// push or splice the selections if you want to save all data selections
+        	});
+
+			$(window).resize(function () {
+				$table.bootstrapTable('resetView', {
+				/* height: getHeight() */
+				});
+			});
+		}
+
+		function getIdSelections() {
+        	return $.map($table.bootstrapTable("getSelections"), function (row) {
+            	return row.idx
+        	});
+    	}
+
+		function responseHandler(res) {
+			$.each(res.rows, function (i, row) {
+				row.state = $.inArray(row.id, selections) !== -1;
+			});
+			return res;
+		   }
+		   
+		$('#search-btn').click(function () {
+			$table.bootstrapTable("destroy");
+			searchAdminList();
+		});
+		
+		$('#regist-btn').click(function () {
+			$('#regist-modal').modal('toggle');
+		});
+
+		$('#regist-modal-btn').click(function () {
+			var form = new FormData(document.getElementById('regist-modal-form'));
+			var form = new FormData($('#regist-modal-form')[0]);
+			for (let [key, value] of form.entries()) {
+				console.log(`key : ${key}, value : ${value}`);
+			}
+            if (!formValidationChk(form)) {
+                return false;
+			}
+			var jsonData = { 'id':'1234' , 'pw':'1234'}
+			// console.log(form);
+			console.log(jsonData);
+            $.ajax({
+                type: 'post',
+                url: '<%= apiHost %>/admin/registAdmin',
+				processData: false,
+                contentType: false,
+                dataType: 'json',
+                data: form,
+                error: function(xhr, status, error) {
+                    alert("System Error!");
+                },
+                success: function(json) {
+                    if (json.code == 200) {
+                        alert(json.message);
+                        searchAdminList();
+                    } else {
+                        alert(json.message);
+                        // $('#brandRegistModal').modal('toggle');
+                    }
+                },
+                complete: function() {}
+            });
+		});
+		
+		$(document).ready(function() {
+			searchAdminList();
+			
+			$('#start-date, #end-date').datepicker({
+				autoclose: true,
+				todayHighlight: true,
+				format: 'yyyy-mm-dd'
+			});
+
+		});
+	</script>
+
+</body>
+</html>

@@ -29,8 +29,8 @@ router.get('/home/dashboard', function (req, res) {
   console.log("대쉬보드 라우터");
   loginUtil.loginCheck(req, res);
   res.render('home/dashboard', {
-      // aid: req.session.key,
-      // apiHost: process.env.API_SERVER_HOST
+      aid: req.session.key,
+      apiHost: process.env.API_SERVER_HOST
   })
 });
 

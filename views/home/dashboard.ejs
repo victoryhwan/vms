@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="ko">
 
-<!-- <% include ../include/header %> -->
+<% include ../include/header %>
 
-<!-- <style>
+<style>
   .info-box {
     min-height: 45px;
   }
@@ -25,15 +25,15 @@
   }
 
 
-</style> -->
+</style>
 
 <!-- Ionicons -->
-<!-- <link rel="stylesheet" href="../../bower_components/Ionicons/css/ionicons.min.css"> -->
+<link rel="stylesheet" href="../../bower_components/Ionicons/css/ionicons.min.css">
 
 <body class="hold-transition skin-blue sidebar-mini">
   <div class="wrapper">
 
-    <!-- <% include ../include/sidebar %> -->
+    <% include ../include/sidebar %>
 
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
@@ -137,234 +137,234 @@
     <!-- /.content-wrapper -->
 
 
-    <!-- <% include ../include/footer %> -->
+    <% include ../include/footer %>
   </div>
   <!-- ./wrapper -->
 
-  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script> -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
   <script type="text/javascript">
-    // var $table = $('#table');
+    var $table = $('#table');
 
-    // // 3일치 가입자 정보 가져오기
-    // function getDashBoardInfo() {
+    // 3일치 가입자 정보 가져오기
+    function getDashBoardInfo() {
 
-    //   $.ajax({
-    //     type: 'get',
-    //     url: '<%= apiHost %>/cms/api/dashboard/info',
-    //     processData: false,
-    //     contentType: false,
-    //     dataType: "json",
-    //     error: function(xhr, status, error) {},
-    //     success: function(json) {
-    //       document.getElementById('member').innerHTML = json.newUserToday;
-    //       document.getElementById('member_out').innerHTML = json.deleteUser;
-    //       document.getElementById('member_1day_before').innerHTML = json.newUserYesterday;
-    //       document.getElementById('totalPayment').innerHTML = formatNumber(json.totalPayment);
-    //       document.getElementById('totalOrderCnt').innerHTML = json.totalOrderCnt;
-    //       document.getElementById('totalUnpayment').innerHTML = json.totalUnpayment;
+      $.ajax({
+        type: 'get',
+        url: '<%= apiHost %>/cms/api/dashboard/info',
+        processData: false,
+        contentType: false,
+        dataType: "json",
+        error: function(xhr, status, error) {},
+        success: function(json) {
+          document.getElementById('member').innerHTML = json.newUserToday;
+          document.getElementById('member_out').innerHTML = json.deleteUser;
+          document.getElementById('member_1day_before').innerHTML = json.newUserYesterday;
+          document.getElementById('totalPayment').innerHTML = formatNumber(json.totalPayment);
+          document.getElementById('totalOrderCnt').innerHTML = json.totalOrderCnt;
+          document.getElementById('totalUnpayment').innerHTML = json.totalUnpayment;
 
-    //       applyChartData(json);
-    //     }
-    //   });
-    // }
+          applyChartData(json);
+        }
+      });
+    }
 
-    // function initTable() {
-    //   $table.bootstrapTable('destroy').bootstrapTable({
-    //     url: "<%= apiHost %>/cms/api/dashboard/click",
-    //     method: 'get',
-    //     cache: false,
-    //     columns: [{
-    //         title: '순위',
-    //         align: "center",
-    //         valign: "middle",
-    //         formatter: runningFormatter
-    //       },
-    //       {
-    //         field: "count",
-    //         title: "클릭수",
-    //         align: "center",
-    //         valign: "middle"
-    //       },
-    //       {
-    //         field: "it_id",
-    //         title: "아이디",
-    //         align: "center",
-    //         valign: "middle",
-    //         formatter: itemInfoLinkFormatter
-    //       }, {
-    //         field: "it_name",
-    //         title: "상품명",
-    //         align: "center",
-    //         valign: "middle"
-    //       }, {
-    //         field: "it_img1",
-    //         title: "상품이미지",
-    //         align: "center",
-    //         valign: "middle",
-    //         formatter: itemImageFormatter
-    //       }, {
-    //         field: "it_sale_price",
-    //         title: "세일가",
-    //         align: "center",
-    //         valign: "middle"
-    //       }
-    //     ]
-    //   });
+    function initTable() {
+      $table.bootstrapTable('destroy').bootstrapTable({
+        url: "<%= apiHost %>/cms/api/dashboard/click",
+        method: 'get',
+        cache: false,
+        columns: [{
+            title: '순위',
+            align: "center",
+            valign: "middle",
+            formatter: runningFormatter
+          },
+          {
+            field: "count",
+            title: "클릭수",
+            align: "center",
+            valign: "middle"
+          },
+          {
+            field: "it_id",
+            title: "아이디",
+            align: "center",
+            valign: "middle",
+            formatter: itemInfoLinkFormatter
+          }, {
+            field: "it_name",
+            title: "상품명",
+            align: "center",
+            valign: "middle"
+          }, {
+            field: "it_img1",
+            title: "상품이미지",
+            align: "center",
+            valign: "middle",
+            formatter: itemImageFormatter
+          }, {
+            field: "it_sale_price",
+            title: "세일가",
+            align: "center",
+            valign: "middle"
+          }
+        ]
+      });
 
-    //   setTimeout(function() {
-    //     $table.bootstrapTable("resetView");
-    //   }, 200);
-
-
-    //   $(window).resize(function() {
-    //     $table.bootstrapTable('resetView', {
-    //       /* height: getHeight() */
-    //     });
-    //   });
-
-    //   $table.on('post-body.bs.table', function() {
-    //     $('.image-popup-no-margins').magnificPopup({
-    //       type: 'image',
-    //       closeOnContentClick: true,
-    //       closeBtnInside: false,
-    //       fixedContentPos: true,
-    //       mainClass: 'mfp-no-margins mfp-with-zoom', // class to remove default margin from left and right side
-    //       image: {
-    //         verticalFit: true
-    //       },
-    //       zoom: {
-    //         enabled: true,
-    //         duration: 300 // don't foget to change the duration also in CSS
-    //       }
-    //     });
-    //   });
-
-    // }
-
-    // function runningFormatter(value, row, index) {
-    //   /* return index + 1; */
-    //   var tableOptions = $table.bootstrapTable('getOptions');
-    //   return 1 + index;
-    // }
-
-    // function itemImageFormatter(value, row, index) {
-    //   if (isBlank(value))
-    //     return "-";
-    //   else
-    //     return "<a id='img-popup' class='image-popup-no-margins' href='" + value + "'>" +
-    //       "<img src='" + value + "' style='width: 40px;'>" +
-    //       "</a>";
-    // }
-
-    // function itemInfoLinkFormatter(value, row, index) {
-    //   return "<a href='https://www.hiphoper.com/item/" + value + "' target='_blank' >" + value + "</a>";
-    // }
-
-    // function formatNumber(num) {
-    //   if(!num || num === undefined) {
-    //     return 0;
-    //   }
-    //   return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
-    // }
+      setTimeout(function() {
+        $table.bootstrapTable("resetView");
+      }, 200);
 
 
-    // function applyChartData(chartData) {
+      $(window).resize(function() {
+        $table.bootstrapTable('resetView', {
+          /* height: getHeight() */
+        });
+      });
 
-    //   var chartPayData = {
-    //     labels: ["6일전", "5일전", "4일전", "3일전", "2일전", "1일전", "오늘"],
-    //     datasets: [{
-    //       label: "매출",
-    //       data: chartData.totalPaymentList,
-    //       borderColor: "#91d4ff",
-    //       borderWidth: 1
-    //     }]
-    //   };
+      $table.on('post-body.bs.table', function() {
+        $('.image-popup-no-margins').magnificPopup({
+          type: 'image',
+          closeOnContentClick: true,
+          closeBtnInside: false,
+          fixedContentPos: true,
+          mainClass: 'mfp-no-margins mfp-with-zoom', // class to remove default margin from left and right side
+          image: {
+            verticalFit: true
+          },
+          zoom: {
+            enabled: true,
+            duration: 300 // don't foget to change the duration also in CSS
+          }
+        });
+      });
 
-    //   var chartUserData = {
-    //     labels: ["6일전", "5일전", "4일전", "3일전", "2일전", "1일전", "오늘"],
-    //     datasets: [{
-    //       label: "가입자",
-    //       data: chartData.newUserList,
-    //       borderColor: "#91d4ff",
-    //       borderWidth: 1
-    //     }]
-    //   };
+    }
 
-    //   var chUserLine = document.getElementById("chUserLine");
-    //   if (chUserLine) {
-    //     new Chart(chUserLine, {
-    //       type: 'line',
-    //       data: chartUserData,
-    //       options: {
-    //         title: {
-    //           display: true,
-    //           text: "가입자수"
-    //         },
-    //         scales: {
-    //           yAxes: [{
-    //             ticks: {
-    //               beginAtZero: true
-    //             }
-    //           }],
-    //           xAxes: [{
-    //             gridLines: {
-    //               display: false
-    //             }
-    //           }]
-    //         },
-    //         legend: {
-    //           display: false
-    //         }
-    //       }
-    //     });
-    //   }
+    function runningFormatter(value, row, index) {
+      /* return index + 1; */
+      var tableOptions = $table.bootstrapTable('getOptions');
+      return 1 + index;
+    }
 
-    //   var chPayLine = document.getElementById("chPayLine");
-    //   if (chPayLine) {
-    //     new Chart(chPayLine, {
-    //       type: 'line',
-    //       data: chartPayData,
-    //       options: {
-    //         title: {
-    //           display: true,
-    //           text: "일매출"
-    //         },
-    //         tooltips: {
-    //           mode: 'label',
-    //           label: 'mylabel',
-    //           callbacks: {
-    //             label: function(tooltipItem, data) {
-    //               return tooltipItem.yLabel.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-    //             },
-    //           },
-    //         },
-    //         scales: {
-    //           yAxes: [{
-    //             ticks: {
-    //               beginAtZero: true,
-    //               callback: function(value, index, values) {
-    //                 if (parseInt(value) >= 1000) {
-    //                   return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-    //                 } else {
-    //                   return value;
-    //                 }
-    //               }
-    //             }
-    //           }],
-    //           xAxes: [{
-    //             gridLines: {
-    //               display: false
-    //             }
-    //           }]
-    //         },
-    //         legend: {
-    //           display: false
-    //         }
-    //       }
-    //     });
-    //   }
+    function itemImageFormatter(value, row, index) {
+      if (isBlank(value))
+        return "-";
+      else
+        return "<a id='img-popup' class='image-popup-no-margins' href='" + value + "'>" +
+          "<img src='" + value + "' style='width: 40px;'>" +
+          "</a>";
+    }
 
-    // }
+    function itemInfoLinkFormatter(value, row, index) {
+      return "<a href='https://www.hiphoper.com/item/" + value + "' target='_blank' >" + value + "</a>";
+    }
+
+    function formatNumber(num) {
+      if(!num || num === undefined) {
+        return 0;
+      }
+      return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
+    }
+
+
+    function applyChartData(chartData) {
+
+      var chartPayData = {
+        labels: ["6일전", "5일전", "4일전", "3일전", "2일전", "1일전", "오늘"],
+        datasets: [{
+          label: "매출",
+          data: chartData.totalPaymentList,
+          borderColor: "#91d4ff",
+          borderWidth: 1
+        }]
+      };
+
+      var chartUserData = {
+        labels: ["6일전", "5일전", "4일전", "3일전", "2일전", "1일전", "오늘"],
+        datasets: [{
+          label: "가입자",
+          data: chartData.newUserList,
+          borderColor: "#91d4ff",
+          borderWidth: 1
+        }]
+      };
+
+      var chUserLine = document.getElementById("chUserLine");
+      if (chUserLine) {
+        new Chart(chUserLine, {
+          type: 'line',
+          data: chartUserData,
+          options: {
+            title: {
+              display: true,
+              text: "가입자수"
+            },
+            scales: {
+              yAxes: [{
+                ticks: {
+                  beginAtZero: true
+                }
+              }],
+              xAxes: [{
+                gridLines: {
+                  display: false
+                }
+              }]
+            },
+            legend: {
+              display: false
+            }
+          }
+        });
+      }
+
+      var chPayLine = document.getElementById("chPayLine");
+      if (chPayLine) {
+        new Chart(chPayLine, {
+          type: 'line',
+          data: chartPayData,
+          options: {
+            title: {
+              display: true,
+              text: "일매출"
+            },
+            tooltips: {
+              mode: 'label',
+              label: 'mylabel',
+              callbacks: {
+                label: function(tooltipItem, data) {
+                  return tooltipItem.yLabel.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                },
+              },
+            },
+            scales: {
+              yAxes: [{
+                ticks: {
+                  beginAtZero: true,
+                  callback: function(value, index, values) {
+                    if (parseInt(value) >= 1000) {
+                      return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                    } else {
+                      return value;
+                    }
+                  }
+                }
+              }],
+              xAxes: [{
+                gridLines: {
+                  display: false
+                }
+              }]
+            },
+            legend: {
+              display: false
+            }
+          }
+        });
+      }
+
+    }
 
 
     $(document).ready(function() {

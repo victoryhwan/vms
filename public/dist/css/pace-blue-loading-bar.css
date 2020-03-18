@@ -1,0 +1,111 @@
+/*** 아래는 pace 로딩 표현 방식 변경에 따른 스타일 ***/
+.pace {
+  -webkit-pointer-events: none;
+  pointer-events: none;
+
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+
+  -webkit-perspective: 12rem;
+  -moz-perspective: 12rem;
+  -ms-perspective: 12rem;
+  -o-perspective: 12rem;
+  perspective: 12rem;
+
+  z-index: 2000;
+  position: fixed;
+
+  margin: auto;
+  top: 0;
+  left: 230px;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.5)
+}
+body.sidebar-collapse .pace{
+left: 50px;
+}
+.pace:after{
+position: absolute;
+left: 0;
+right: 0;
+top: 0;
+bottom: 0;
+margin: auto;
+width: 400px;
+height:4rem;
+padding-top: 8rem;
+content: '로딩 중입니다.  5분 이상 이 화면이 지속될 경우 새로고침 해주세요.';
+display: block;
+color: #fff;
+}
+.pace.pace-inactive,
+.pace.pace-inactive .pace-progress {
+display: none;
+}
+
+.pace .pace-progress {
+position: fixed;
+z-index: 2000;
+display: block;
+position: absolute;
+left: 0;
+right: 0;
+top: 0;
+bottom: 0;
+width: 10rem !important;
+height: 4rem;
+margin: auto;
+line-height: 4rem;
+font-size: 2rem;
+border-radius: 4px;
+background: rgba(0,0,0,1);
+color: #fff;
+/* font-family: "Helvetica Neue", sans-serif; */
+font-weight: 300;
+text-align: center;
+
+-webkit-animation: pace-theme-center-circle-spin linear infinite 1.5s;
+-moz-animation: pace-theme-center-circle-spin linear infinite 1.5s;
+-ms-animation: pace-theme-center-circle-spin linear infinite 1.5s;
+-o-animation: pace-theme-center-circle-spin linear infinite 1.5s;
+animation: pace-theme-center-circle-spin linear infinite 1.5s;
+
+-webkit-transform-style: preserve-3d;
+-moz-transform-style: preserve-3d;
+-ms-transform-style: preserve-3d;
+-o-transform-style: preserve-3d;
+transform-style: preserve-3d;
+}
+
+.pace .pace-progress:after {
+/* content: attr(data-progress-text); */
+content: 'VicFactory';
+display: block;
+}
+
+@-webkit-keyframes pace-theme-center-circle-spin {
+from { -webkit-transform: rotateY(0deg) }
+to { -webkit-transform: rotateY(360deg) }
+}
+
+@-moz-keyframes pace-theme-center-circle-spin {
+from { -moz-transform: rotateY(0deg) }
+to { -moz-transform: rotateY(360deg) }
+}
+
+@-ms-keyframes pace-theme-center-circle-spin {
+from { -ms-transform: rotateY(0deg) }
+to { -ms-transform: rotateY(360deg) }
+}
+
+@-o-keyframes pace-theme-center-circle-spin {
+from { -o-transform: rotateY(0deg) }
+to { -o-transform: rotateY(360deg) }
+}
+
+@keyframes pace-theme-center-circle-spin {
+from { transform: rotateY(0deg) }
+to { transform: rotateY(360deg) }
+}
