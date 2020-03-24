@@ -32,7 +32,7 @@ router.post('/', function (req, res) {
             // console.log(response);
             if (response.data.code == 200) {
                 req.session.key = id;
-                // req.session.membername = response.body.id;
+                // req.session.membername F= response.body.id;
                 req.session.adminid = response.data.id;
                 console.log("@@@ ok");
                 res.redirect('/home/dashboard')
@@ -42,6 +42,7 @@ router.post('/', function (req, res) {
             }
         })
         .catch(function(err){
+            console.log('catch err');
             console.log(err);
         });
 });
